@@ -11,8 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class CalculatorActivity extends Activity {
 
@@ -22,13 +23,35 @@ public class CalculatorActivity extends Activity {
 		setContentView(R.layout.activity_calculator);
 		setupTipPercentageEditTextListener();
 		setupBillAmountEditTextListener();
+		setupSeekBarListener();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.calculator, menu);
 		return true;
+	}
+	
+	private void setupSeekBarListener() {
+		SeekBar sbTipScale = (SeekBar) findViewById(R.id.sbTipScale);
+		sbTipScale.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {			
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {}
+			
+			
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				Log.d("TEST - setupSeekBarListener()", "max: " + seekBar.getMax() + " - progress: " + progress);
+				EditText etTipPercentage = (EditText) findViewById(R.id.etTipPercentage);
+				BigDecimal tipPercentage = BigDecimal.valueOf(progress);
+				etTipPercentage.setText(tipPercentage.toString());
+				calculateTip(tipPercentage.divide(BigDecimal.valueOf(100)));
+				
+			}
+		});
 	}
 	
 	private void setupBillAmountEditTextListener() {
@@ -61,14 +84,14 @@ public class CalculatorActivity extends Activity {
 	        public void afterTextChanged(Editable s) {
 	        	Log.d("TEST - setupTipPercentageEditTextListener()", s.toString());
 	        	String percentage = s.toString();
-	        	if(percentage == null || percentage.length() == 0) {
+	        	
+	        	if(percentage == null || percentage.length() == 0 || percentage.equals(".")) {
 	        		calculateTip(BigDecimal.ZERO);
 	        	} else {
 	        		BigDecimal tipAmt = new BigDecimal(percentage);
 	        		tipAmt = tipAmt.divide(BigDecimal.valueOf(100));
 	        		calculateTip(tipAmt);
-	        	}
-	        	
+	        	}	        	
 	        }
 	        public void beforeTextChanged(CharSequence s, int start, int count, int after){}
 	        public void onTextChanged(CharSequence s, int start, int before, int count){}
@@ -80,35 +103,33 @@ public class CalculatorActivity extends Activity {
 		String billAmtInputString = billAmountEditText.getText().toString();
 		if(billAmtInputString == null || billAmtInputString.length() == 0) {
 			Log.d("TEST", "BILL AMOUNT IS NULL OR EMPTY");
-			Toast.makeText(this, "Please enter the bill amount", Toast.LENGTH_SHORT).show();
-			return;
+			billAmtInputString = "0.00";
 		}
+	
+		BigDecimal billAmount = new BigDecimal(billAmtInputString).setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal calculatedTip = billAmount.multiply(tipAmount).setScale(2, RoundingMode.HALF_EVEN);
+		BigDecimal totalAmount = billAmount.add(calculatedTip).setScale(2, RoundingMode.HALF_EVEN);
 
-		BigDecimal billAmount = new BigDecimal(billAmtInputString).setScale(2, RoundingMode.UP);
-		BigDecimal calculatedTip = billAmount.multiply(tipAmount).setScale(2, RoundingMode.UP);
-		BigDecimal totalAmount = billAmount.add(calculatedTip).setScale(2, RoundingMode.UP);
 		TextView tvBillAmount = (TextView) findViewById(R.id.tvBillAmount);
 		TextView tvTipAmount = (TextView) findViewById(R.id.tvCalculatedTipAmount);
+		TextView tvTotalAmount = (TextView) findViewById(R.id.tvTotalAmount);
+
 		tvTipAmount.setText(getString(R.string.currency_symbol) + " " + calculatedTip.toString());
 		tvBillAmount.setText(getString(R.string.currency_symbol) + " " + billAmtInputString);
-		TextView tvTotalAmount = (TextView) findViewById(R.id.tvTotalAmount);
 		tvTotalAmount.setText(getString(R.string.currency_symbol) + " " + totalAmount.toString());
 	}
 	
 	public void calculateTipPercent10(View view) {
-		Log.d("TEST", "calculateTip Start");
 		EditText etTipPercentage = (EditText) findViewById(R.id.etTipPercentage);
 		etTipPercentage.setText("10.0");
 	}
 	
 	public void calculateTipPercent15(View view) {
-		Log.d("TEST", "calculateTip Start");
 		EditText etTipPercentage = (EditText) findViewById(R.id.etTipPercentage);
 		etTipPercentage.setText("15.0");
 	}
 	
 	public void calculateTipPercent20(View view) {
-		Log.d("TEST", "calculateTip Start");
 		EditText etTipPercentage = (EditText) findViewById(R.id.etTipPercentage);
 		etTipPercentage.setText("20.0");
 	}
