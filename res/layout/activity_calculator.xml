@@ -8,49 +8,93 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".CalculatorActivity" >
 
+
+    <Button
+        android:id="@+id/btnDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="More Options" 
+        android:onClick="getDetails"/>
+
     <RelativeLayout
-        android:id="@+id/relativeLayout1"
+        android:id="@+id/rlayoutInputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context=".CalculatorActivity" >
 
-        <EditText
-            android:id="@+id/etBillAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/tvTipAmountLabel"
-            android:ems="10"
-            android:inputType="numberDecimal" >
-
-            <requestFocus />
-        </EditText>
-
         <TextView
             android:id="@+id/tvBillAmountLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/etBillAmount"
-            android:layout_alignParentLeft="true"
-            android:text="@string/bill_amount_label"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/bill_amount_prompt"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <EditText
+            android:id="@+id/etBillAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tvBillAmountLabel"
+
+            android:ems="10"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/tvTipAmountLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvBillAmountLabel"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/etBillAmount"
+            android:textAlignment="center"
+            android:gravity="center_horizontal"            
             android:layout_marginTop="17dp"
-            android:text="@string/tip_percentage_label"
+            android:text="@string/service_level_prompt"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
+        <ImageView
+            android:id="@+id/ivPercent10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvTipAmountLabel"
+            android:layout_marginTop="22dp"
+            android:contentDescription="10% Tip"
+            android:onClick="calculateTipPercent10"
+            android:src="@drawable/bad_service_smiley" />
+
+
+        <ImageView
+            android:id="@+id/ivPercent15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/ivPercent20"
+            android:layout_centerHorizontal="true"
+            android:contentDescription="15% Tip"
+            android:onClick="calculateTipPercent15"
+            android:src="@drawable/average_service_smiley" />
+
+        <ImageView
+            android:id="@+id/ivPercent20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/tvTipAmountLabel"
+            android:layout_alignTop="@+id/ivPercent10"
+            android:contentDescription="20% Tip"
+            android:onClick="calculateTipPercent20"
+            android:src="@drawable/excellent_service_smiley" />
+
+        <!-- <EditText
             android:id="@+id/etTipPercentage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,19 +103,9 @@
             android:layout_alignRight="@+id/etBillAmount"
             android:layout_toRightOf="@+id/tvTipAmountLabel"
             android:ems="10"
-            android:inputType="numberDecimal" />
-
-        <Button
-            android:id="@+id/btnPercent10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/tvTipAmountLabel"
-            android:layout_below="@+id/etTipPercentage"
-            android:layout_marginTop="22dp"
-            android:onClick="calculateTipPercent10"
-            android:text="10%" />
-
-        <Button
+            android:inputType="numberDecimal" /> -->
+        
+        <!-- Button
             android:id="@+id/btnPercent20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -88,22 +122,16 @@
             android:layout_alignBottom="@+id/btnPercent10"
             android:layout_centerHorizontal="true"
             android:onClick="calculateTipPercent15"
-            android:text="15%" />
+            android:text="15%" /-->
+        
 
-        <SeekBar
-            android:id="@+id/sbTipScale"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/btnPercent10"
-            android:layout_marginTop="18dp" />
     </RelativeLayout>
-
     <RelativeLayout
+        android:id="@+id/rlayoutSummary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/relativeLayout1"
-        android:layout_below="@+id/relativeLayout1"
+        android:layout_alignLeft="@+id/rlayoutInputs"
+        android:layout_below="@+id/rlayoutInputs"
         android:background="@color/gray"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -112,24 +140,72 @@
         tools:context=".CalculatorActivity" >
 
         <TextView
-            android:id="@+id/tvSummaryTotalAmt"
+            android:id="@+id/tvSummaryTipPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvSummaryTipAmt"
-            android:layout_marginTop="19dp"
-            android:text="@string/total_amount_label"
-            android:textColor="@color/red"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:layout_alignLeft="@+id/tvSummaryTotalAmt"
+            android:layout_alignParentTop="true"
+            android:text="@string/tip_percentage_label"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+		<TextView
+            android:id="@+id/tvTipPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        
         <TextView
             android:id="@+id/tvSummaryTipAmt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/tvSummaryTotalAmt"
-            android:layout_below="@+id/tvSummaryBillAmt"
-            android:layout_marginTop="18dp"
+            android:layout_below="@+id/tvSummaryTipPercent"
             android:text="@string/tip_amount_label"
+            android:layout_marginTop="10dp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tvCalculatedTipAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvSummaryTotalAmt"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+		<TextView
+            android:id="@+id/tvSummaryTotalAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSummaryTipAmt"
+            android:layout_marginTop="10dp"
+            android:text="@string/total_amount_label"
+            android:textColor="@color/red"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+                
+                
+        <TextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSummaryTotalAmt"
+            android:layout_alignBottom="@+id/tvSummaryTotalAmt"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/red"
+            android:text="0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+        
+
+<!-- 
 
         <View
             android:layout_width="fill_parent"
@@ -148,27 +224,23 @@
             android:text="@string/bill_amount_label"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/tvSummaryTipAmt"
+            android:layout_below="@+id/tvSummaryTipAmt"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
         <TextView
-            android:id="@+id/tvTotalAmount"
+            android:id="@+id/tvSummaryDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/tvSummaryTotalAmt"
-            android:layout_alignBottom="@+id/tvSummaryTotalAmt"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:textColor="@color/red"
-            android:text="$0.00"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/tvCalculatedTipAmount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/tvSummaryTotalAmt"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:text="$0.00"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/bill_details_label"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
 
         <TextView
             android:id="@+id/tvBillAmount"
@@ -179,25 +251,9 @@
             android:layout_alignRight="@+id/tvTotalAmount"
             android:text="$0.00"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
-            android:id="@+id/tvSummaryDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:text="@string/bill_details_label"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_alignLeft="@+id/tvSummaryTipAmt"
-            android:layout_below="@+id/tvSummaryTipAmt"
-            android:layout_marginTop="3dp"
-            android:background="@color/white" />
+            
+            -->        
 
     </RelativeLayout>
-
+    
 </RelativeLayout>

@@ -1,0 +1,222 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DetailsActivity" >
+    
+    <RelativeLayout
+        android:id="@+id/rlayoutInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".DetailsActivity" >
+
+        
+        <TextView
+            android:id="@+id/tvBillAmountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/etBillAmount"
+            android:layout_alignParentLeft="true"
+            android:text="@string/bill_amount_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <EditText
+            android:id="@+id/etBillAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/tvBillAmountLabel"
+            android:ems="10"
+            android:inputType="numberDecimal" >
+
+        </EditText>
+
+
+        <TextView
+            android:id="@+id/tvTipAmountLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvBillAmountLabel"
+            android:layout_below="@+id/etBillAmount"
+            android:layout_marginTop="10dp"
+            android:text="@string/tip_percentage_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/etTipPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvTipAmountLabel"
+            android:layout_alignBottom="@+id/tvTipAmountLabel"
+            android:layout_alignRight="@+id/etBillAmount"
+            android:layout_toRightOf="@+id/tvBillAmountLabel"
+            android:ems="10"
+            android:inputType="numberDecimal" />
+
+
+        <!-- <SeekBar
+            android:id="@+id/sbTipScale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/etTipPercentage"
+            android:layout_marginTop="18dp" /> -->
+
+        <TextView
+            android:id="@+id/tvSplitBillLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvBillAmountLabel"
+            android:layout_below="@+id/etTipPercentage"
+            android:layout_marginTop="10dp"
+            android:text="@string/split_bill_label"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <NumberPicker
+            android:id="@+id/nbrPickerPerson"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etTipPercentage"
+            android:layout_alignLeft="@+id/etTipPercentage"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlayoutSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnBack"
+        android:layout_alignLeft="@+id/rlayoutInput"
+        android:background="@color/gray"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        tools:context=".DetailsActivity" >
+
+        <TextView
+            android:id="@+id/tvSummaryDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/bill_details_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tvSummaryDetails"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tvSummaryBillAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvSummaryTipAmt"
+            android:layout_below="@+id/tvSummaryDetails"
+            android:layout_marginTop="19dp"
+            android:text="@string/bill_amount_label"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tvBillAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSummaryBillAmt"
+            android:layout_alignBottom="@+id/tvSummaryBillAmt"
+            android:layout_alignRight="@+id/tvTotalAmount"
+            android:text="$0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tvSummaryTipAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvSummaryTotalAmt"
+            android:layout_below="@+id/tvSummaryBillAmt"
+            android:layout_marginTop="5dp"
+            android:text="@string/tip_amount_label"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_alignLeft="@+id/tvSummaryTipAmt"
+            android:layout_below="@+id/tvSummaryTipAmt"
+            android:layout_marginTop="3dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/tvCalculatedTipAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvSummaryTotalAmt"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="$0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/tvSummaryTotalAmt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSummaryTipAmt"
+            android:layout_marginTop="10dp"
+            android:text="@string/total_amount_label"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />
+        
+		<TextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSummaryTotalAmt"
+            android:layout_alignBottom="@+id/tvSummaryTotalAmt"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="$0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />
+		
+		<TextView
+            android:id="@+id/tvSummaryAmtPerPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSummaryTotalAmt"
+            android:layout_marginTop="5dp"
+            android:text="@string/person_amount_label"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />
+        
+		<TextView
+            android:id="@+id/tvAmountPerPerson"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvSummaryAmtPerPerson"
+            android:layout_alignBottom="@+id/tvSummaryAmtPerPerson"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:text="$0.00"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/red" />	
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="goToMain"
+        android:text="Back" />
+
+</RelativeLayout>
